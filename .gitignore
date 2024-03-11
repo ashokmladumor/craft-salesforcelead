@@ -1,0 +1,17 @@
+.vscode
+.env
+.DS_Store
+
+FauxTwigExtension.php
+node_modules
+vendor
+web/assets/js
+web/assets/css
+web/documents/
+web/imager
+
+web/mix-manifest.json
+
+web/cpresources/
+
+

@@ -1,0 +1,48 @@
+{
+  "name": "ashokmladumor/craft-salesforceleads",
+  "description": "This plugin help to connect Craft Commerce to salesforce Lead.",
+  "type": "craft-plugin",
+  "version": "1.0.0",
+  "keywords": [
+      "craft",
+      "cms",
+      "craftcms",
+      "craft-plugin",
+      "salesforce",
+      "salesforce leads"
+  ],
+  "support": {
+      "docs": "https://github.com/ashokmladumor/craft-salesforceleads/blob/master/README.md",
+      "issues": "https://github.com/ashokmladumor/craft-salesforceleads/issues"
+  },
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Ashokm Ladumor",
+          "homepage": "https://github.com/ashokmladumor"
+      }
+  ],
+  "require": {
+      "craftcms/cms": "^3.0.0"
+  },
+  "autoload": {
+      "psr-4": {
+        "ashokmladumor\\salesforceleads\\": "src/"
+      }
+  },
+  "extra": {
+      "name": "Salesforce Leads",
+      "handle": "salesforce-leads",
+      "schemaVersion": "1.1.0",
+      "hasCpSettings": true,
+      "hasCpSection": false,
+      "changelogUrl": "https://raw.githubusercontent.com/ashokmladumor/craft-salesforceleads/master/CHANGELOG.md",
+      "class": "ashokmladumor\\salesforceleads\\SalesforceLeads"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}

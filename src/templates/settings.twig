@@ -1,0 +1,137 @@
+{% import "_includes/forms" as forms %}
+
+{% macro configWarning(setting) -%}
+  {% set setting = '<code>' ~ setting ~ '</code>' %}
+  {{ 'This is being overridden by the {setting} config setting in your {file} config file.'|t('sentry', {
+      setting: setting,
+      file:    'salesforce-leads.php'
+  })|raw }}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+<h2 class="first">Credentials</h2>
+
+{{ forms.textField({
+    first:        true,
+    required:     true,
+    label:        'Organisation ID',
+    instructions: 'You can override this value in your form.',
+    id:           'organisationId',
+    name:         'organisationId',
+    placeholder:  '00A10000000AAA1',
+    value:        settings.organisationId,
+    disabled:     'organisationId' in overrides,
+    warning:      'organisationId' in overrides ? configWarning('organisationId')
+}) }}
+
+<hr>
+
+<h2 class="first">Honeypot Captcha</h2>
+
+{{ forms.lightswitchField({
+  first:        true,
+  label:        'Honeypot Captcha',
+  instructions: 'Block spam submissions using the [honeypot captcha](https://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/) method.',
+  id:           'honeypot',
+  name:         'honeypot',
+  on:           settings.honeypot,
+  disabled:     'honeypot' in overrides,
+  warning:      'honeypot' in overrides ? configWarning('honeypot')
+}) }}
+
+{{ forms.textField({
+    label:        'Honeypot Form Param',
+    instructions: 'The name that the honeypot field should have.',
+    id:           'honeypotParam',
+    name:         'honeypotParam',
+    placeholder:  settings.honeypotParam,
+    value:        settings.honeypotParam,
+    disabled:     'honeypotParam' in overrides,
+    warning:      'honeypotParam' in overrides ? configWarning('honeypotParam')
+}) }}
+
+{% if emailValidator %}
+<hr>
+
+<h2 class="first">Email Validation</h2>
+
+{{ forms.lightswitchField({
+  first:        true,
+  label:        'Email Validation',
+  instructions: 'Validate email addresses using the [Email Validator](https://github.com/lukeyouell/craft-emailvalidator) plugin.',
+  id:           'emailValidation',
+  name:         'emailValidation',
+  on:           settings.emailValidation,
+  disabled:     'emailValidation' in overrides,
+  warning:      'emailValidation' in overrides ? configWarning('emailValidation')
+}) }}
+
+{{ forms.textField({
+    label:        'Email Form Param',
+    instructions: 'The name that the email field should have.',
+    id:           'evFormParam',
+    name:         'evFormParam',
+    placeholder:  settings.evFormParam,
+    value:        settings.evFormParam,
+    disabled:     'evFormParam' in overrides,
+    warning:      'evFormParam' in overrides ? configWarning('evFormParam')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Format Check',
+  instructions: 'Perform a standard email format check, verifying it\'s basic compliance.',
+  on:           true,
+  disabled:     true
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'MX Records',
+  instructions: 'Allow submissions from domains that aren\'t configured to receive email.',
+  id:           'evAllowNoMX',
+  name:         'evAllowNoMX',
+  on:           settings.evAllowNoMX,
+  disabled:     'evAllowNoMX' in overrides,
+  warning:      'evAllowNoMX' in overrides ? configWarning('evAllowNoMX')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Catch All',
+  instructions: 'Allow submissions from domains that are configured to catch all incoming mail traffic.',
+  id:           'evAllowCatchAll',
+  name:         'evAllowCatchAll',
+  on:           settings.evAllowCatchAll,
+  disabled:     'evAllowCatchAll' in overrides,
+  warning:      'evAllowCatchAll' in overrides ? configWarning('evAllowCatchAll')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Roles',
+  instructions: 'Allow submissions from role-based email addresses.',
+  id:           'evAllowRoles',
+  name:         'evAllowRoles',
+  on:           settings.evAllowRoles,
+  disabled:     'evAllowRoles' in overrides,
+  warning:      'evAllowRoles' in overrides ? configWarning('evAllowRoles')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Free Providers',
+  instructions: 'Allow submissions from email addresses found to be using a free email provider such as Gmail and Yahoo!.',
+  id:           'evAllowFree',
+  name:         'evAllowFree',
+  on:           settings.evAllowFree,
+  disabled:     'evAllowFree' in overrides,
+  warning:      'evAllowFree' in overrides ? configWarning('evAllowFree')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Disposable Providers',
+  instructions: 'Allow submissions from email addresses found to be using a disposable email provider.',
+  id:           'evAllowDisposable',
+  name:         'evAllowDisposable',
+  on:           settings.evAllowDisposable,
+  disabled:     'evAllowDisposable' in overrides,
+  warning:      'evAllowDisposable' in overrides ? configWarning('evAllowDisposable')
+}) }}
+{% endif %}
